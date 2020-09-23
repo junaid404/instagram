@@ -6,6 +6,8 @@ import { ThemeProvider, CssBaseline } from "@material-ui/core";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import FeedPage from "./pages/feed";
 import ExplorePage from "./pages/explore";
+import SingupPage from "./pages/signup";
+import LoginPage from "./pages/login";
 import PostPage from "./pages/post";
 import NotFoundPage from "./pages/404";
 
@@ -19,6 +21,8 @@ const Root = () => {
             <Route exact path="/" component={FeedPage} />
             <Route exact path="/explore" component={ExplorePage} />
             <Route exact path="/p/:postId" component={PostPage} />
+            <Route exact path="/accounts/emailsignup" component={SingupPage} />
+            <Route exact path="/accounts/login" component={LoginPage} />
             <Route exact path="/404" component={NotFoundPage} />
             <Redirect to="/404" />
           </Switch>

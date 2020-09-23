@@ -4,12 +4,13 @@ import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import Hidden from "@material-ui/core/Hidden";
 import Header from "../components/shared/Header";
-import FeedCard from "../components/feed/FeedCard";
 import Followings from "../components/feed/Following";
 import Aside from "../components/feed/Aside";
 import FeedSlider from "../components/feed/FeedSlider";
+import FeedSkeleton from "../components/feed/FeedCardSkeleton";
 import { useFeedPageStyles } from "../helpers/styles";
 import { getDefaultUser, getPostData } from "../helpers/dummyData";
+const FeedCard = React.lazy(() => import("../components/feed/FeedCard"));
 
 const FeedPage = () => {
   const [isAuth] = useState(true);
@@ -41,10 +42,16 @@ const FeedPage = () => {
                     return (
                       <React.Fragment key={data.id}>
                         <FeedSlider data={users} />
-                        <FeedCard data={data} />
+                        <React.Suspense fallback={<FeedSkeleton />}>
+                          <FeedCard key={data.id} data={data} />
+                        </React.Suspense>
                       </React.Fragment>
                     );
-                  return <FeedCard key={data.id} data={data} />;
+                  return (
+                    <React.Suspense fallback={<FeedSkeleton />}>
+                      <FeedCard key={data.id} data={data} />
+                    </React.Suspense>
+                  );
                 }
               )}
             </div>

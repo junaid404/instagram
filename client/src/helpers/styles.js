@@ -184,6 +184,12 @@ export const useSignupPageStyles = makeStyles((theme) => ({
   gutter: {
     margin: "10px 0",
   },
+  navigationLink: {
+    cursor: "pointer",
+    fontWeight: "bold",
+    textDecoration: "none",
+    color: theme.palette.primary.main,
+  },
 }));
 
 export const useORComponentStyles = makeStyles((theme) => ({
@@ -494,5 +500,19 @@ export const useSinglePostStyles = makeStyles((theme) => ({
     color: "#333",
     fontWeight: "bold",
     fontSize: "18px",
+  },
+}));
+
+export const useFeedCardSkeletonStyles = makeStyles((theme) => ({
+  card: {
+    marginBottom: "40px",
+  },
+  headContainer: {
+    display: "flex",
+    alignItems: "center",
+    padding: "10px 20px",
+  },
+  text1: {
+    marginLeft: "20px",
   },
 }));
