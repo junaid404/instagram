@@ -1,14 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import theme from "./helpers/theme";
 import * as serviceWorker from "./serviceWorker";
 import { ThemeProvider, CssBaseline } from "@material-ui/core";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import theme from "./helpers/theme";
 import FeedPage from "./pages/feed";
 import ExplorePage from "./pages/explore";
 import SingupPage from "./pages/signup";
 import LoginPage from "./pages/login";
 import PostPage from "./pages/post";
+import ProfilePage from "./pages/profile";
 import NotFoundPage from "./pages/404";
 
 const Root = () => {
@@ -23,6 +24,7 @@ const Root = () => {
             <Route exact path="/p/:postId" component={PostPage} />
             <Route exact path="/accounts/emailsignup" component={SingupPage} />
             <Route exact path="/accounts/login" component={LoginPage} />
+            <Route exact path="/me" component={ProfilePage} />
             <Route exact path="/404" component={NotFoundPage} />
             <Redirect to="/404" />
           </Switch>

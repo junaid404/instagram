@@ -43,13 +43,13 @@ const FeedPage = () => {
                       <React.Fragment key={data.id}>
                         <FeedSlider data={users} />
                         <React.Suspense fallback={<FeedSkeleton />}>
-                          <FeedCard key={data.id} data={data} />
+                          <FeedCard data={data} />
                         </React.Suspense>
                       </React.Fragment>
                     );
                   return (
-                    <React.Suspense fallback={<FeedSkeleton />}>
-                      <FeedCard key={data.id} data={data} />
+                    <React.Suspense key={data.id} fallback={<FeedSkeleton />}>
+                      <FeedCard data={data} />
                     </React.Suspense>
                   );
                 }

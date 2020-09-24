@@ -516,3 +516,104 @@ export const useFeedCardSkeletonStyles = makeStyles((theme) => ({
     marginLeft: "20px",
   },
 }));
+
+export const usePostCardSkeletonStyles = makeStyles((theme) => ({
+  card: {
+    marginBottom: "40px",
+  },
+  topMargin: {
+    marginTop: "4.5rem",
+  },
+  headContainer: {
+    display: "flex",
+    alignItems: "center",
+    padding: "10px 20px",
+  },
+  text1: {
+    marginLeft: "20px",
+  },
+}));
+
+export const useProfilePageStyles = makeStyles((theme) => ({
+  topMargin: {
+    marginTop: "4rem",
+  },
+  image: {
+    width: "150px",
+    height: "150px",
+    borderRadius: "50%",
+    border: "1px solid #ddd",
+  },
+  topContainer: {
+    display: "flex",
+    alignItems: "center",
+    marginTop: "6rem",
+  },
+  container: {
+    display: "flex",
+    alignItems: "center",
+  },
+  subContainer: {
+    display: "flex",
+    flexDirection: "column",
+    marginLeft: "4rem",
+  },
+  button: {
+    backgroundColor: "#eee",
+    border: "1px solid #ccc",
+    margin: "0 20px",
+
+    "&:hover": {
+      backgroundColor: "#eee",
+      boxShadow: "unset",
+    },
+  },
+  topText: {
+    fontSize: "35px",
+    color: "#999",
+    fontWeight: 300,
+    lineHeight: 1,
+  },
+  line1Container: {
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "20px",
+  },
+  line2Container: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: "10px",
+  },
+  counts: {
+    fontWeight: "bold",
+    fontSize: "16px",
+    color: "#000",
+    marginRight: "8px",
+  },
+  tabsContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tabsIcon: {
+    width: "10px",
+    height: "10px",
+    marginRight: "3px",
+  },
+  tabsText: {
+    fontSize: "14px",
+    color: "#444",
+  },
+  sideMargin: {
+    margin: "auto 30px",
+  },
+  tabsIndicator: {
+    backgroundColor: "#222",
+    top: "0px",
+  },
+  dividerMargin: {
+    marginTop: "3rem",
+    marginBottom: "2rem",
+  },
+}));

@@ -8,6 +8,7 @@ import Header from "../components/shared/Header";
 import MiniPost from "../components/shared/MiniPost";
 import CardHead from "../components/post/CardHead";
 import CardBottom from "../components/post/CardBottom";
+import PostSkeleton from "../components/post/PostSkeleton";
 import { useParams } from "react-router-dom";
 import { getPostData } from "../helpers/dummyData";
 import { useSinglePostStyles } from "../helpers/styles";
@@ -24,7 +25,9 @@ const SinglePost = () => {
   return (
     <React.Fragment>
       <Header />
-      {data && (
+      {!data ? (
+        <PostSkeleton />
+      ) : (
         <Container maxWidth="md" className={classes.topMargin}>
           <Card className={classes.topCard}>
             <Grid container>

@@ -17,7 +17,6 @@ import Logo from "../../images/logo.png";
 import {
   HomeIcon,
   HomeActiveIcon,
-  ShareIcon,
   AddIcon,
   ExploreIcon,
   ExploreActiveIcon,
@@ -198,11 +197,6 @@ const Header = ({ isAuth = true }) => {
                     />
                   )}
                 </Link>
-                <Link to="/">
-                  <ShareIcon
-                    style={{ cursor: "pointer", marginRight: "20px" }}
-                  />
-                </Link>
                 <Link to="/explore">
                   {currentRoute === "/explore" ? (
                     <ExploreActiveIcon
@@ -245,7 +239,7 @@ const Header = ({ isAuth = true }) => {
                     </div>
                   </Tooltip>
                 </OutsideClick>
-                <Link to="/">
+                <Link to="/me">
                   <img
                     style={{ cursor: "pointer", marginLeft: "10px" }}
                     alt="User"
