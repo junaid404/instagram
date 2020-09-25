@@ -19,7 +19,9 @@ const SinglePost = () => {
   const classes = useSinglePostStyles();
 
   useEffect(() => {
-    setdata(getPostData());
+    setTimeout(() => {
+      setdata(getPostData());
+    }, 2000);
   }, [location.postId]);
 
   return (

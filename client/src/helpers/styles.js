@@ -547,7 +547,12 @@ export const useProfilePageStyles = makeStyles((theme) => ({
   topContainer: {
     display: "flex",
     alignItems: "center",
+    flexDirection: "row",
     marginTop: "6rem",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+      alignItems: "flex-start",
+    },
   },
   container: {
     display: "flex",
@@ -557,6 +562,7 @@ export const useProfilePageStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     marginLeft: "4rem",
+    [theme.breakpoints.down("sm")]: { marginTop: "20px", marginLeft: "0px" },
   },
   button: {
     backgroundColor: "#eee",
@@ -615,5 +621,139 @@ export const useProfilePageStyles = makeStyles((theme) => ({
   dividerMargin: {
     marginTop: "3rem",
     marginBottom: "2rem",
+  },
+  buttonLink: { textDecoration: "none" },
+  savedContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    textAlign: "center",
+  },
+  savedImageContainer: {
+    width: "80px",
+    height: "80px",
+    border: "1px solid #333",
+    borderRadius: "50%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  savedImage: {
+    width: "50%",
+    height: "50%",
+  },
+  savedTextH6: {
+    fontSize: "25px",
+    fontWeight: "300",
+    color: "#555",
+    margin: "20px 0 5px 0",
+  },
+  savedText: {
+    maxWidth: "400px",
+    wordWrap: "break-word",
+    lineHeight: 1.3,
+    fontSize: "16px",
+  },
+}));
+
+export const useEditPageStyles = makeStyles((theme) => ({
+  topMargin: {
+    marginTop: "5rem",
+  },
+  hoverStyle: {
+    padding: "10px 25px",
+    borderLeft: "2px solid #fff",
+    "&:hover": {
+      backgroundColor: "#eee",
+      borderLeft: "2px solid #ddd",
+    },
+    [theme.breakpoints.down("sm")]: {
+      borderRight: "2px solid #fff",
+      borderLeft: "none",
+      "&:hover": {
+        backgroundColor: "#eee",
+        borderLeft: "none",
+        borderRight: "2px solid #ddd",
+      },
+    },
+  },
+  active: {
+    borderLeft: "2px solid #111",
+    "&:hover": {
+      backgroundColor: "#fff",
+      borderLeft: "2px solid #111",
+    },
+    [theme.breakpoints.down("sm")]: {
+      borderRight: "2px solid #111",
+      borderLeft: "none",
+      "&:hover": {
+        backgroundColor: "#fff",
+        borderLeft: "none",
+      },
+    },
+  },
+  leftSide: {
+    flexGrow: 1,
+  },
+  rightSide: {
+    borderLeft: "1px solid #ddd",
+  },
+  link: {
+    textDecoration: "none",
+    color: "#555",
+  },
+  menuIconContainer: {
+    flexGrow: 1,
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  menuIcon: {
+    width: "60%",
+    cursor: "pointer",
+  },
+  input: {
+    ...theme.mixins.customInput,
+    marginBottom: "12px",
+  },
+  inputWhite: {
+    ...theme.mixins.customInput,
+    backgroundColor: "#fff !important",
+    marginBottom: "12px",
+  },
+  resetContainer: {
+    padding: "40px",
+  },
+  resetSubContainer: {
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "30px",
+  },
+  resetImage: {
+    width: "60px",
+    height: "60px",
+    borderRadius: "50%",
+    border: "1px solid #333",
+    marginRight: "20px",
+  },
+  label: {
+    fontSize: "15px",
+    fontFamily: "inherit",
+    lineHeight: 1.5,
+  },
+  Button: {
+    margin: "20px 0",
+  },
+  Link: {
+    textDecoration: "none",
+  },
+  changeProfileImg: {
+    padding: "0",
+    "&:hover": {
+      backgroundColor: "#fff",
+    },
   },
 }));

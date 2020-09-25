@@ -7,12 +7,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Header from "../components/shared/Header";
-import { useProfilePageStyles } from "../helpers/styles";
-import { getDefaultUser } from "../helpers/dummyData";
-import { GearIcon } from "../helpers/icons";
 import PostIcon from "../components/profile/PostIcon";
 import SaveIcon from "../components/profile/SaveIcon";
 import TabsPannel from "../components/profile/TabsPannel";
+import { useProfilePageStyles } from "../helpers/styles";
+import { getDefaultUser } from "../helpers/dummyData";
+import { GearIcon } from "../helpers/icons";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const classes = useProfilePageStyles();
@@ -39,13 +40,15 @@ const Profile = () => {
                 <Typography className={classes.topText} variant="h6">
                   {data.username}
                 </Typography>
-                <Button
-                  size="small"
-                  className={classes.button}
-                  variant="contained"
-                >
-                  Edit Profile
-                </Button>
+                <Link className={classes.buttonLink} to="/accounts/edit">
+                  <Button
+                    size="small"
+                    className={classes.button}
+                    variant="contained"
+                  >
+                    Edit Profile
+                  </Button>
+                </Link>
                 <GearIcon />
               </div>
               <div className={classes.line2Container}>

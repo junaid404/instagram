@@ -1,6 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Posts from "./Posts";
+import Saved from "./Saved";
 
 const TabsPannel = ({ index, value }) => {
   switch (true) {
@@ -11,11 +12,7 @@ const TabsPannel = ({ index, value }) => {
         </Grid>
       );
     case index === 1 && value === 1:
-      return (
-        <div>
-          Saved <span>page</span>
-        </div>
-      );
+      return <Saved />;
     default:
       return "";
   }
