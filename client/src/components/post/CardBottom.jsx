@@ -7,6 +7,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import EllipsisLines from "react-lines-ellipsis/lib/html";
 import { formatPostDate } from "../../helpers/dateFormatter";
 import { useFeedPageStyles } from "../../helpers/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import useTheme from "@material-ui/core/styles/useTheme";
 import {
   CommentIcon,
   ShareIcon,
@@ -19,6 +21,8 @@ const CardBottom = ({ data, minimal }) => {
   const classes = useFeedPageStyles();
   const [isLiked] = React.useState(false);
   const [isCollapsed, setisCollapsed] = React.useState(false);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   const iconLike = isLiked ? (
     <LikeActiveIcon style={{ cursor: "pointer" }} />
@@ -111,18 +115,24 @@ const CardBottom = ({ data, minimal }) => {
           </Typography>
         </div>
       </div>
-      <Divider />
-      <Toolbar>
-        <InputBase
-          multiline
-          rowsMax={3}
-          placeholder="Add a comment..."
-          fullWidth
-        />
-        <Button color="primary" variant="text">
-          Post
-        </Button>
-      </Toolbar>
+      {minimal && matches ? (
+        ""
+      ) : (
+        <React.Fragment>
+          <Divider />
+          <Toolbar>
+            <InputBase
+              multiline
+              rowsMax={3}
+              placeholder="Add a comment..."
+              fullWidth
+            />
+            <Button color="primary" variant="text">
+              Post
+            </Button>
+          </Toolbar>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };

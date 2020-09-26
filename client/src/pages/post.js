@@ -4,9 +4,10 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import Divider from "@material-ui/core/Divider";
+import Hidden from "@material-ui/core/Hidden";
 import Header from "../components/shared/Header";
 import MiniPost from "../components/shared/MiniPost";
-import CardHead from "../components/post/CardHead";
+import CardHead from "../components/shared/CardHead";
 import CardBottom from "../components/post/CardBottom";
 import PostSkeleton from "../components/post/PostSkeleton";
 import { useParams } from "react-router-dom";
@@ -33,7 +34,10 @@ const SinglePost = () => {
         <Container maxWidth="md" className={classes.topMargin}>
           <Card className={classes.topCard}>
             <Grid container>
-              <Grid item xs={8}>
+              <Grid item sm={12} md={8}>
+                <Hidden mdUp>
+                  <CardHead data={data} />
+                </Hidden>
                 <div className={classes.fixedHeight}>
                   <img
                     className={classes.fullWidth}
@@ -41,20 +45,28 @@ const SinglePost = () => {
                     alt={data.user.username}
                   />
                 </div>
+                <Hidden mdUp>
+                  <div>
+                    <Divider />
+                    <CardBottom minimal data={data} />
+                  </div>
+                </Hidden>
               </Grid>
-              <Grid item xs={4} className={classes.postCardContainer}>
-                <div>
-                  <CardHead data={data} />
-                  <Typography
-                    style={{ padding: "10px" }}
-                    dangerouslySetInnerHTML={{ __html: data.caption }}
-                  ></Typography>
-                </div>
-                <div>
-                  <Divider />
-                  <CardBottom minimal data={data} />
-                </div>
-              </Grid>
+              <Hidden smDown>
+                <Grid item xs={4} className={classes.postCardContainer}>
+                  <div>
+                    <CardHead data={data} />
+                    <Typography
+                      style={{ padding: "10px" }}
+                      dangerouslySetInnerHTML={{ __html: data.caption }}
+                    ></Typography>
+                  </div>
+                  <div>
+                    <Divider />
+                    <CardBottom minimal data={data} />
+                  </div>
+                </Grid>
+              </Hidden>
             </Grid>
           </Card>
           <Divider />
@@ -66,7 +78,7 @@ const SinglePost = () => {
           </Typography>
           <Grid container spacing={3}>
             {Array.from({ length: 6 }, () => getPostData()).map((data) => (
-              <Grid key={data.id} item xs={4}>
+              <Grid key={data.id} item md={4} xs={6}>
                 <MiniPost data={data} />
               </Grid>
             ))}
