@@ -116,6 +116,9 @@ export const useHeaderStyles = makeStyles((theme) => ({
   notificationToolTipItems: {
     padding: "10px 20px 10px 10px",
   },
+  link: {
+    textDecoration: "none",
+  },
 }));
 
 export const useNotFoundpageStyles = makeStyles((theme) => ({
@@ -724,7 +727,7 @@ export const useEditPageStyles = makeStyles((theme) => ({
   inputWhite: {
     ...theme.mixins.customInput,
     backgroundColor: "#fff !important",
-    marginBottom: "12px",
+    marginBottom: "12px !important",
   },
   resetContainer: {
     padding: "40px",

@@ -8,7 +8,7 @@ const NotFoundPage = () => {
   const classes = useNotFoundpageStyles();
   return (
     <React.Fragment>
-      <Header />
+      <Header minimal isAuth />
       <div className={classes.body}>
         <Typography variant="h6" className={classes.lowerText}>
           Sorry, this page isn't available.

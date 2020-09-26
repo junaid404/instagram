@@ -24,7 +24,7 @@ import {
   LikeActiveIcon,
 } from "../../helpers/icons";
 
-const Header = ({ isAuth = true }) => {
+const Header = ({ isAuth = true, minimal = false }) => {
   const [isSearchFocused, setisSearchFocused] = useState(false);
   const [showNotificationT, setshowNotificationT] = useState(false);
   const history = useHistory();
@@ -168,19 +168,30 @@ const Header = ({ isAuth = true }) => {
                 </Tooltip>
               </Hidden>
             </div>
-            {!isAuth ? (
-              <div>
-                <Link to="/accounts/login">
-                  <Button size="small" color="primary" variant="contained">
-                    Log In
-                  </Button>
+            {!isAuth || minimal ? (
+              isAuth ? (
+                <Link to="/me">
+                  <img
+                    style={{ cursor: "pointer", marginLeft: "10px" }}
+                    alt="User"
+                    className={classes.smallImg}
+                    src={DefaultUserImage}
+                  />
                 </Link>
-                <Link to="/accounts/emailsignup">
-                  <Button color="primary" variant="text">
-                    Sign Up
-                  </Button>
-                </Link>
-              </div>
+              ) : (
+                <div>
+                  <Link className={classes.link} to="/accounts/login">
+                    <Button size="small" color="primary" variant="contained">
+                      Log In
+                    </Button>
+                  </Link>
+                  <Link className={classes.link} to="/accounts/emailsignup">
+                    <Button color="primary" variant="text">
+                      Sign Up
+                    </Button>
+                  </Link>
+                </div>
+              )
             ) : (
               <div className={classes.rightContainer}>
                 <Link to="/">
