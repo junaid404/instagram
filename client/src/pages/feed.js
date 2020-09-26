@@ -7,7 +7,7 @@ import Header from "../components/shared/Header";
 import Followings from "../components/feed/Following";
 import Aside from "../components/feed/Aside";
 import FeedSlider from "../components/feed/FeedSlider";
-import FeedSkeleton from "../components/feed/FeedCardSkeleton";
+import FeedCardSkeleton from "../components/feed/FeedCardSkeleton";
 import { useFeedPageStyles } from "../helpers/styles";
 import { getDefaultUser, getPostData } from "../helpers/dummyData";
 const FeedCard = React.lazy(() => import("../components/feed/FeedCard"));
@@ -42,13 +42,16 @@ const FeedPage = () => {
                     return (
                       <React.Fragment key={data.id}>
                         <FeedSlider data={users} />
-                        <React.Suspense fallback={<FeedSkeleton />}>
+                        <React.Suspense fallback={<FeedCardSkeleton />}>
                           <FeedCard data={data} />
                         </React.Suspense>
                       </React.Fragment>
                     );
                   return (
-                    <React.Suspense key={data.id} fallback={<FeedSkeleton />}>
+                    <React.Suspense
+                      key={data.id}
+                      fallback={<FeedCardSkeleton />}
+                    >
                       <FeedCard data={data} />
                     </React.Suspense>
                   );
