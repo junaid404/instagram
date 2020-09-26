@@ -5,8 +5,7 @@ import Hidden from "@material-ui/core/Hidden";
 import Header from "../components/shared/Header";
 import { useExplorePageStyles } from "../helpers/styles";
 import { getPostData } from "../helpers/dummyData";
-import { LikeWhiteIcon, CommentWhiteIcon } from "../helpers/icons";
-import { Link } from "react-router-dom";
+import BigPost from "../components/explore/BigPost";
 import MiniPost from "../components/shared/MiniPost";
 
 const Explore = () => {
@@ -26,31 +25,7 @@ const Explore = () => {
           </Hidden>
           <Grid md={8} sm={12} item>
             {Array.from({ length: 1 }, () => getPostData()).map((data) => (
-              <div key={data.id} className={classes.topRightHeight}>
-                <Link to={`/p/${data.id}`}>
-                  <div className={classes.overlay}>
-                    <div className={classes.exploreOverlayContainer}>
-                      <div className={classes.overlayTextContainer}>
-                        <LikeWhiteIcon />
-                        <span className={classes.overlayText}>
-                          {data.likes}
-                        </span>
-                      </div>
-                      <div className={classes.overlayTextContainer}>
-                        <CommentWhiteIcon />
-                        <span className={classes.overlayText}>
-                          {data.comments.length}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <img
-                    className={classes.RightHeroImg}
-                    src={data.media}
-                    alt={data.user.username}
-                  />
-                </Link>
-              </div>
+              <BigPost key={data.id} data={data} />
             ))}
           </Grid>
         </Grid>
