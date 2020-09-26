@@ -8,7 +8,7 @@ import Hidden from "@material-ui/core/Hidden";
 import Header from "../components/shared/Header";
 import MiniPost from "../components/shared/MiniPost";
 import CardHead from "../components/shared/CardHead";
-import CardBottom from "../components/post/CardBottom";
+import CardBottom from "../components/shared/CardBottom";
 import PostSkeleton from "../components/post/PostSkeleton";
 import { useParams } from "react-router-dom";
 import { getPostData } from "../helpers/dummyData";

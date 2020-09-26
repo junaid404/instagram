@@ -3,23 +3,23 @@ import Header from "../components/shared/Header";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import useTheme from "@material-ui/core/styles/useTheme";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Reset from "../components/edit/Reset";
 import EditComp from "../components/edit/Edit";
-import MenuIcon from "../images/menu.svg";
+import MenuIcon from "../components/edit/MenuIcon";
+import DrawerContent from "../components/edit/DrawrContent";
+import SideLinks from "../components/edit/SideLinks";
 import { useEditPageStyles } from "../helpers/styles";
 import { getDefaultUser } from "../helpers/dummyData";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Edit = () => {
-  const [openDrawer, setopenDrawer] = React.useState(false);
   const theme = useTheme();
   const history = useHistory();
   const classes = useEditPageStyles();
+  const [openDrawer, setopenDrawer] = React.useState(false);
   const currentPath = history.location.pathname;
   const isEditPage = currentPath === "/accounts/edit";
   const isResetPage = currentPath === "/accounts/reset";
@@ -33,28 +33,7 @@ const Edit = () => {
         onOpen={() => setopenDrawer(true)}
         onClose={() => setopenDrawer(false)}
       >
-        <div className={classes.leftSide}>
-          <Link className={classes.link} to="/accounts/edit">
-            <ListItem
-              className={`${classes.hoverStyle} ${
-                isEditPage && classes.active
-              }`}
-              button
-            >
-              <ListItemText primary="Edit Profile" />
-            </ListItem>
-          </Link>
-          <Link className={classes.link} to="/accounts/reset">
-            <ListItem
-              className={`${classes.hoverStyle} ${
-                isResetPage && classes.active
-              }`}
-              button
-            >
-              <ListItemText primary="Change Password" />
-            </ListItem>
-          </Link>
-        </div>
+        <DrawerContent />
       </SwipeableDrawer>
       <Header />
       <Container className={classes.topMargin} maxWidth="md">
@@ -62,36 +41,10 @@ const Edit = () => {
           <Grid container>
             <Grid item xs={1} md={4}>
               {!matches ? (
-                <div className={classes.leftSide}>
-                  <Link className={classes.link} to="/accounts/edit">
-                    <ListItem
-                      className={`${classes.hoverStyle} ${
-                        isEditPage && classes.active
-                      }`}
-                      button
-                    >
-                      <ListItemText primary="Edit Profile" />
-                    </ListItem>
-                  </Link>
-                  <Link className={classes.link} to="/accounts/reset">
-                    <ListItem
-                      className={`${classes.hoverStyle} ${
-                        isResetPage && classes.active
-                      }`}
-                      button
-                    >
-                      <ListItemText primary="Change Password" />
-                    </ListItem>
-                  </Link>
-                </div>
+                <SideLinks />
               ) : (
                 <div className={classes.menuIconContainer}>
-                  <img
-                    onClick={() => setopenDrawer(!openDrawer)}
-                    className={classes.menuIcon}
-                    src={MenuIcon}
-                    alt="menu"
-                  />
+                  <MenuIcon onClick={() => setopenDrawer(!openDrawer)} />
                 </div>
               )}
             </Grid>
