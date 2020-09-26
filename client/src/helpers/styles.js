@@ -381,7 +381,7 @@ export const useMoreDialog = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    width: "250px",
+    width: "300px",
   },
 }));
 
