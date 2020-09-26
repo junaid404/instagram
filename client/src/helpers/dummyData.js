@@ -1,4 +1,5 @@
 import { v4 as uuid } from "uuid";
+import profile_image from "../images/default-user-image.jpg";
 
 export const getPostData = () => {
   return {
@@ -18,8 +19,7 @@ export function getDefaultUser() {
     id: uuid(),
     username: "username",
     name: "name",
-    profile_image:
-      "https://avatars3.githubusercontent.com/u/70687177?s=400&u=3d886538d2c3da3756de472db902669c5b005923&v=4",
+    profile_image: profile_image,
   };
 }
 

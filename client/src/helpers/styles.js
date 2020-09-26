@@ -228,7 +228,6 @@ export const useFeedPageStyles = makeStyles((theme) => ({
     },
   },
   followingImg: {
-    border: "1px solid #3897f0",
     width: "70px",
     height: "70px",
     borderRadius: "50%",
@@ -345,7 +344,6 @@ export const useUserProfilerCompStyles = makeStyles((theme) => ({
     height: "60px",
     backgroundPosition: "center",
     backgroundSize: "cover",
-    border: "1px solid #3897f0",
   },
   smallImg: {
     borderRadius: "50%",
@@ -353,7 +351,6 @@ export const useUserProfilerCompStyles = makeStyles((theme) => ({
     height: "40px",
     backgroundPosition: "center",
     backgroundSize: "cover",
-    border: "1px solid #3897f0",
   },
   container: {
     display: "flex",
@@ -736,7 +733,6 @@ export const useEditPageStyles = makeStyles((theme) => ({
     width: "60px",
     height: "60px",
     borderRadius: "50%",
-    border: "1px solid #333",
     marginRight: "20px",
   },
   label: {
