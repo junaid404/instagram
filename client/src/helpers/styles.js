@@ -311,7 +311,11 @@ export const useFeedPageStyles = makeStyles((theme) => ({
     textAlign: "center",
     marginTop: "10px",
   },
-  asideFollowersCaption: { alignSelf: "center", fontWeight: "bold !important" },
+  asideFollowersCaption: {
+    cursor: "pointer",
+    alignSelf: "center",
+    fontWeight: "bold !important",
+  },
   asideFooterText: {
     color: "#ccc",
     fontSize: "12px",
@@ -369,6 +373,7 @@ export const useUserProfilerCompStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     color: "#666",
   },
+  link: { textDecoration: "none" },
   normalText: { color: "#888", lineHeight: 1.3, fontSize: "13px" },
 }));
 

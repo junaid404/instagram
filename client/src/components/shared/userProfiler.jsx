@@ -1,5 +1,6 @@
 import React from "react";
 import Typtography from "@material-ui/core/Typography";
+import { Link } from "react-router-dom";
 import { useUserProfilerCompStyles } from "../../helpers/styles";
 
 const UserProfile = ({ data, minimal }) => {
@@ -13,9 +14,11 @@ const UserProfile = ({ data, minimal }) => {
         alt={data.username}
       />
       <div className={classes.subContainer}>
-        <Typtography className={classes.headingText} variant="h6">
-          {data.username}
-        </Typtography>
+        <Link className={classes.link} to={`/${data.username}`}>
+          <Typtography className={classes.headingText} variant="h6">
+            {data.username}
+          </Typtography>
+        </Link>
         <Typtography className={classes.normalText} variant="caption">
           {data.name}
         </Typtography>
