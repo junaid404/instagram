@@ -2,12 +2,18 @@ const express = require('express');
 const { ApolloServer, PubSub } = require('apollo-server-express');
 const { loadFilesSync } = require('@graphql-tools/load-files');
 const { mergeTypeDefs, mergeResolvers } = require('@graphql-tools/merge');
+const bodyParser = require('body-parser');
 const http = require('http');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
+const db = require('./utils/db');
 
 const app = express();
+
+app.use(bodyParser.json({ limit: '5mb' }));
+app.use(cors());
+
 const $PORT = process.env.PORT || 8080;
 const pubsub = new PubSub();
 const apolloServer = new ApolloServer({
@@ -16,11 +22,9 @@ const apolloServer = new ApolloServer({
   context: ({ req }) => ({
     req,
     pubsub,
+    db,
   }),
 });
-
-app.use(cors());
-app.use(express.json());
 
 const httpServer = http.createServer(app);
 apolloServer.applyMiddleware({ app });
