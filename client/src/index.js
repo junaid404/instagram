@@ -9,30 +9,51 @@ import LoginPage from "./pages/login";
 import SingupPage from "./pages/signup";
 import ExplorePage from "./pages/explore";
 import ProfilePage from "./pages/profile";
+import PrivateRoute from "./components/general/PrivateRoute";
+import AuthProvider from "./components/general/AuthContext";
 import * as serviceWorker from "./serviceWorker";
+import { ApolloProvider } from "@apollo/client";
+import client from "./graphql/client";
 import { ThemeProvider, CssBaseline } from "@material-ui/core";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 const Root = () => {
   return (
     <React.Fragment>
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Switch>
-            <Route exact path="/404" component={NotFoundPage} />
-            <Route exact path="/" component={FeedPage} />
-            <Route exact path="/explore" component={ExplorePage} />
-            <Route exact path="/p/:postId" component={PostPage} />
-            <Route exact path="/:me" component={ProfilePage} />
-            <Route exact path="/accounts/edit" component={EditPage} />
-            <Route exact path="/accounts/reset" component={EditPage} />
-            <Route exact path="/accounts/emailsignup" component={SingupPage} />
-            <Route exact path="/accounts/login" component={LoginPage} />
-            <Redirect to="/404" />
-          </Switch>
-        </ThemeProvider>
-      </BrowserRouter>
+      <AuthProvider>
+        <ApolloProvider client={client}>
+          <BrowserRouter>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Switch>
+                <Route exact path="/404" component={NotFoundPage} />
+                <PrivateRoute exact path="/" component={FeedPage} />
+
+                <PrivateRoute exact path="/explore" component={ExplorePage} />
+                <PrivateRoute exact path="/p/:postId" component={PostPage} />
+                <PrivateRoute exact path="/:me" component={ProfilePage} />
+                <PrivateRoute
+                  exact
+                  path="/accounts/edit"
+                  component={EditPage}
+                />
+                <PrivateRoute
+                  exact
+                  path="/accounts/reset"
+                  component={EditPage}
+                />
+                <Route
+                  exact
+                  path="/accounts/emailsignup"
+                  component={SingupPage}
+                />
+                <Route exact path="/accounts/login" component={LoginPage} />
+                <Redirect to="/404" />
+              </Switch>
+            </ThemeProvider>
+          </BrowserRouter>
+        </ApolloProvider>
+      </AuthProvider>
     </React.Fragment>
   );
 };

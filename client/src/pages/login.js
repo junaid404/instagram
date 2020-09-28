@@ -9,9 +9,43 @@ import Toolbar from "@material-ui/core/Toolbar";
 import FacebookBlueIcon from "../images/facebook-icon-blue.svg";
 import { Link } from "react-router-dom";
 import { useSignupPageStyles } from "../helpers/styles";
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "../graphql/Mutations";
+import { authContext } from "../components/general/AuthContext";
+import { LoadingIcon } from "../helpers/icons";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const classes = useSignupPageStyles();
+  const { setAuthData } = React.useContext(authContext);
+  const [formData, setFormData] = React.useState({
+    email: "",
+    password: "",
+  });
+  const [execute, { loading }] = useMutation(LOGIN);
+  const history = useHistory();
+
+  const handleChange = (event) => {
+    const { value, name } = event.target;
+    setFormData((prevValues) => {
+      return { ...prevValues, [name]: value };
+    });
+  };
+
+  const handleLoginOperation = async (event) => {
+    event.preventDefault();
+
+    const { email, password } = formData;
+
+    const result = await execute({ variables: { email, pass: password } });
+    await setAuthData({
+      loading: false,
+      user: result.data.login.user,
+      token: result.data.login.token,
+    });
+    history.push("/");
+  };
+
   return (
     <React.Fragment>
       <Container maxWidth="xs" className={classes.box}>
@@ -21,6 +55,7 @@ const Login = () => {
             <form>
               <div>
                 <Input
+                  name="email"
                   placeholder="Phone Number, User Name or Email"
                   size="small"
                   fullWidth
@@ -28,10 +63,13 @@ const Login = () => {
                   variant="outlined"
                   className={classes.textField}
                   inputProps={{ style: { fontSize: 14, padding: 10 } }}
+                  value={formData.email}
+                  onChange={(event) => handleChange(event)}
                 />
               </div>
               <div>
                 <Input
+                  name="password"
                   placeholder="Password"
                   size="small"
                   fullWidth
@@ -39,6 +77,8 @@ const Login = () => {
                   variant="outlined"
                   className={classes.textField}
                   inputProps={{ style: { fontSize: 14, padding: 10 } }}
+                  value={formData.password}
+                  onChange={(event) => handleChange(event)}
                 />
               </div>
               <div>
@@ -47,9 +87,11 @@ const Login = () => {
                   color="primary"
                   variant="contained"
                   fullWidth
+                  onClick={handleLoginOperation}
                   className={classes.submitButton}
+                  disabled={loading ? true : false}
                 >
-                  Log in
+                  {loading ? <LoadingIcon /> : "Log in"}
                 </Button>
               </div>
             </form>
