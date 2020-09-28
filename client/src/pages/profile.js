@@ -20,7 +20,7 @@ const Profile = () => {
   const classes = useProfilePageStyles();
   const data = getDefaultUser();
   const [activeTab, setactiveTab] = React.useState(0);
-  const [openDialog, setopenDialog] = React.useState(true);
+  const [openDialog, setopenDialog] = React.useState(false);
 
   const handleCurrentTab = (e, value) => {
     setactiveTab(value);
@@ -52,7 +52,10 @@ const Profile = () => {
                     Edit Profile
                   </Button>
                 </Link>
-                <span onClick={() => setopenDialog(true)}>
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setopenDialog(true)}
+                >
                   <GearIcon />
                 </span>
               </div>

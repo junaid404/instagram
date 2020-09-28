@@ -22,15 +22,7 @@ const OptionsDialog = ({ onClose, open = false }) => {
     <Dialog onClose={onClose} open={open}>
       <div className={classes.container}>
         <div style={{ width: "100%" }}>
-          <Link to="/accounts/reset">
-            <Button variant="text" fullWidth>
-              Change Password
-            </Button>
-          </Link>
-          <Divider />
-        </div>
-        <div style={{ width: "100%" }}>
-          <Link to="">
+          <Link style={{ textDecoration: "none" }} to="/accounts/edit">
             <Button className={classes.padding} variant="text" fullWidth>
               Settings
             </Button>
@@ -38,7 +30,15 @@ const OptionsDialog = ({ onClose, open = false }) => {
           <Divider />
         </div>
         <div style={{ width: "100%" }}>
-          <Link to="/">
+          <Link style={{ textDecoration: "none" }} to="/accounts/reset">
+            <Button className={classes.padding} variant="text" fullWidth>
+              Change Password
+            </Button>
+          </Link>
+          <Divider />
+        </div>
+        <div style={{ width: "100%" }}>
+          <Link style={{ textDecoration: "none" }} to="/">
             <Button className={classes.padding} variant="text" fullWidth>
               Report a Problem
             </Button>
@@ -46,7 +46,7 @@ const OptionsDialog = ({ onClose, open = false }) => {
           <Divider />
         </div>
         <div style={{ width: "100%" }}>
-          <Link to="/accounts/edit">
+          <Link style={{ textDecoration: "none" }} to="/accounts/edit">
             <Button className={classes.padding} variant="text" fullWidth>
               Change @username
             </Button>
