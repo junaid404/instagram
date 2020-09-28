@@ -10,6 +10,7 @@ import Header from "../components/shared/Header";
 import PostIcon from "../components/profile/PostIcon";
 import SaveIcon from "../components/profile/SaveIcon";
 import TabsPannel from "../components/profile/TabsPannel";
+import OptionsDialog from "../components/profile/OptionsDialog";
 import { useProfilePageStyles } from "../helpers/styles";
 import { getDefaultUser } from "../helpers/dummyData";
 import { GearIcon } from "../helpers/icons";
@@ -19,6 +20,7 @@ const Profile = () => {
   const classes = useProfilePageStyles();
   const data = getDefaultUser();
   const [activeTab, setactiveTab] = React.useState(0);
+  const [openDialog, setopenDialog] = React.useState(true);
 
   const handleCurrentTab = (e, value) => {
     setactiveTab(value);
@@ -26,6 +28,7 @@ const Profile = () => {
 
   return (
     <React.Fragment>
+      <OptionsDialog open={openDialog} onClose={() => setopenDialog(false)} />
       <Header />
       <Container className={classes.topMargin} maxWidth="md">
         <div className={classes.topContainer}>
@@ -49,7 +52,9 @@ const Profile = () => {
                     Edit Profile
                   </Button>
                 </Link>
-                <GearIcon />
+                <span onClick={() => setopenDialog(true)}>
+                  <GearIcon />
+                </span>
               </div>
               <div className={classes.line2Container}>
                 <div className={classes.container}>
