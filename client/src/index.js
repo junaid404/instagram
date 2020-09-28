@@ -10,6 +10,7 @@ import SingupPage from "./pages/signup";
 import ExplorePage from "./pages/explore";
 import ProfilePage from "./pages/profile";
 import PrivateRoute from "./components/general/PrivateRoute";
+import UnauthRoute from "./components/general/UnauthRoute";
 import AuthProvider from "./components/general/AuthContext";
 import * as serviceWorker from "./serviceWorker";
 import { ApolloProvider } from "@apollo/client";
@@ -42,12 +43,16 @@ const Root = () => {
                   path="/accounts/reset"
                   component={EditPage}
                 />
-                <Route
+                <UnauthRoute
                   exact
                   path="/accounts/emailsignup"
                   component={SingupPage}
                 />
-                <Route exact path="/accounts/login" component={LoginPage} />
+                <UnauthRoute
+                  exact
+                  path="/accounts/login"
+                  component={LoginPage}
+                />
                 <Redirect to="/404" />
               </Switch>
             </ThemeProvider>
