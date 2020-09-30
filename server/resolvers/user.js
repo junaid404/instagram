@@ -3,7 +3,7 @@ const { encrypt, decrypt } = require('../utils/hash');
 const { generateToken } = require('../utils/token');
 
 const User = async (_parent, { id }) => {
-  const user = await DBUser.findOne({ id });
+  const user = await DBUser.findOne({ where: { id } });
 
   if (user) return user;
 
@@ -12,6 +12,21 @@ const User = async (_parent, { id }) => {
 
 const createUser = async (_parent, { object }) => {
   const { name, username, email, password } = object;
+
+  const isEmail = await DBUser.findAll({
+    where: {
+      email,
+    },
+  });
+  if (isEmail[0]) {
+    return new Error('Email Already exists please login!');
+  }
+
+  const isUsername = await DBUser.findOne({ where: { username } });
+  if (isUsername) {
+    return new Error('Username Already exists please try another one!');
+  }
+
   const { hash, salt } = encrypt(password);
   const user = await DBUser.create({
     name,
@@ -32,8 +47,7 @@ const createUser = async (_parent, { object }) => {
 const login = async (_parent, { object }) => {
   const { email, password } = object;
 
-  const isUser = await DBUser.findOne({ email });
-
+  const isUser = await DBUser.findOne({ where: { email } });
   if (!isUser) {
     return new Error('Invalid Email or Password!');
   }

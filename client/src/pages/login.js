@@ -22,7 +22,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const [execute, { loading }] = useMutation(LOGIN);
+  const [execute, { loading, error }] = useMutation(LOGIN);
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -37,13 +37,16 @@ const Login = () => {
 
     const { email, password } = formData;
 
-    const result = await execute({ variables: { email, pass: password } });
-    await setAuthData({
-      loading: false,
-      user: result.data.login.user,
-      token: result.data.login.token,
-    });
-    history.push("/");
+    try {
+      const result = await execute({ variables: { email, pass: password } });
+      if (result.errors) return;
+      await setAuthData({
+        loading: false,
+        user: result.data.login.user,
+        token: result.data.login.token,
+      });
+      history.push("/");
+    } catch (err) {}
   };
 
   return (
@@ -52,14 +55,15 @@ const Login = () => {
         <Card style={{ padding: "20px 40px" }}>
           <div className={classes.cardHeader} />
           <div>
-            <form>
+            <form onSubmit={(event) => handleLoginOperation(event)}>
               <div>
                 <Input
                   name="email"
                   placeholder="Phone Number, User Name or Email"
                   size="small"
                   fullWidth
-                  type="text"
+                  type="email"
+                  required
                   variant="outlined"
                   className={classes.textField}
                   inputProps={{ style: { fontSize: 14, padding: 10 } }}
@@ -73,6 +77,7 @@ const Login = () => {
                   placeholder="Password"
                   size="small"
                   fullWidth
+                  required
                   type="password"
                   variant="outlined"
                   className={classes.textField}
@@ -87,7 +92,7 @@ const Login = () => {
                   color="primary"
                   variant="contained"
                   fullWidth
-                  onClick={handleLoginOperation}
+                  type="submit"
                   className={classes.submitButton}
                   disabled={loading ? true : false}
                 >
@@ -113,6 +118,15 @@ const Login = () => {
               Login with Facebook
             </Button>
           </div>
+          {error && (
+            <Typography
+              variant="subtitle2"
+              style={{ color: "red", padding: "12px" }}
+            >
+              Sorry, your password was incorrect. Please double-check your
+              password.
+            </Typography>
+          )}
           <Link to="/accounts/reset">Forget Password?</Link>
         </Card>
         <Card className={classes.gutter}>

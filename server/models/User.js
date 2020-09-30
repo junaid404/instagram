@@ -18,7 +18,7 @@ const User = sequelize.define('User', {
   profile_image: { type: DataTypes.STRING },
   website: { type: DataTypes.STRING },
   email: { type: DataTypes.STRING, allowNull: false },
-  bio: { type: DataTypes.STRING },
+  bio: { type: DataTypes.STRING, allowNull: true },
   password: { type: DataTypes.STRING, allowNull: false },
   salt: { type: DataTypes.STRING, allowNull: false },
   phone_number: { type: DataTypes.STRING },

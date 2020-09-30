@@ -10,13 +10,22 @@ import FacebookWhteLogo from "../images/facebook-icon-white.png";
 import { Link } from "react-router-dom";
 import { useSignupPageStyles } from "../helpers/styles";
 import { LoadingIcon } from "../helpers/icons";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import { HighlightOff, CheckCircleOutline } from "@material-ui/icons";
 import { useMutation } from "@apollo/client";
 import { SIGNUP } from "../graphql/Mutations";
 import { useHistory } from "react-router-dom";
 import { authContext } from "../components/general/AuthContext";
+import {
+  checkName,
+  checkEmail,
+  checkPassword,
+  checkUsername,
+} from "../helpers/validators";
 
 const Signup = () => {
   const classes = useSignupPageStyles();
+  const { setAuthData } = React.useContext(authContext);
   const [formData, setformData] = React.useState({
     name: "",
     email: "",
@@ -24,7 +33,11 @@ const Signup = () => {
     password: "",
   });
   const [execute, { loading }] = useMutation(SIGNUP);
-  const { setAuthData } = React.useContext(authContext);
+  const [validName, setvalidName] = React.useState(true);
+  const [validUname, setvalidUname] = React.useState(true);
+  const [validPass, setvalidPass] = React.useState(true);
+  const [validEmail, setvalidEmail] = React.useState(true);
+  const [error, seterror] = React.useState(null);
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -38,18 +51,70 @@ const Signup = () => {
     event.preventDefault();
     const { name, email, password, username } = formData;
 
-    const result = await execute({
-      variables: { name, email, password, username },
-    });
+    const checkedemail = checkEmail(email);
+    if (checkedemail.error) {
+      setvalidEmail(false);
+      return;
+    }
 
-    await setAuthData({
-      loading: false,
-      token: result.data.createUser.token,
-      user: result.data.createUser.user,
-    });
+    const checkedName = checkName(name);
+    if (checkedName.error) {
+      setvalidName(false);
+      setvalidEmail(true);
+      return;
+    }
 
-    history.push("/");
+    const checkedUsername = checkUsername(username);
+    if (checkedUsername.error) {
+      setvalidUname(false);
+      setvalidName(true);
+      return;
+    }
+
+    const checkedPass = checkPassword(password);
+    if (checkedPass.error) {
+      setvalidPass(false);
+      setvalidUname(true);
+      return;
+    }
+    setvalidPass(true);
+    try {
+      const result = await execute({
+        variables: { name, email, password, username },
+      });
+      if (result.errors) return;
+
+      await setAuthData({
+        loading: false,
+        token: result.data.createUser.token,
+        user: result.data.createUser.user,
+      });
+
+      history.push("/");
+    } catch (err) {
+      seterror(err);
+      if (err.message === "Email Already exists please login!") {
+        setvalidEmail(false);
+        setvalidUname(true);
+      }
+      if (err.message === "Username Already exists please try another one!") {
+        setvalidUname(false);
+        setvalidEmail(true);
+      }
+    }
   };
+
+  const errorIcon = (
+    <InputAdornment>
+      <HighlightOff style={{ color: "red", height: 30, width: 30 }} />
+    </InputAdornment>
+  );
+
+  const validIcon = (
+    <InputAdornment>
+      <CheckCircleOutline style={{ color: "#ccc", height: 30, width: 30 }} />
+    </InputAdornment>
+  );
 
   return (
     <React.Fragment>
@@ -79,7 +144,7 @@ const Signup = () => {
           </div>
           <OR />
           <div>
-            <form>
+            <form onSubmit={handleSignupOperation}>
               <div>
                 <Input
                   name="email"
@@ -89,9 +154,12 @@ const Signup = () => {
                   placeholder="Mobile Number or Email"
                   size="small"
                   fullWidth
-                  type="text"
+                  type="email"
                   variant="outlined"
-                  inputProps={{ style: { fontSize: 14, padding: 10 } }}
+                  required
+                  InputProps={{
+                    endAdornment: !validEmail ? errorIcon : validIcon,
+                  }}
                 />
               </div>
               <div>
@@ -104,8 +172,11 @@ const Signup = () => {
                   fullWidth
                   type="text"
                   variant="outlined"
+                  required
                   className={classes.textField}
-                  inputProps={{ style: { fontSize: 14, padding: 10 } }}
+                  InputProps={{
+                    endAdornment: !validName ? errorIcon : validIcon,
+                  }}
                 />
               </div>
               <div>
@@ -117,9 +188,12 @@ const Signup = () => {
                   size="small"
                   fullWidth
                   type="text"
+                  required
                   variant="outlined"
                   className={classes.textField}
-                  inputProps={{ style: { fontSize: 14, padding: 10 } }}
+                  InputProps={{
+                    endAdornment: !validUname ? errorIcon : validIcon,
+                  }}
                 />
               </div>
               <div>
@@ -130,10 +204,13 @@ const Signup = () => {
                   placeholder="Password"
                   size="small"
                   fullWidth
+                  required
                   type="password"
                   variant="outlined"
                   className={classes.textField}
-                  inputProps={{ style: { fontSize: 14, padding: 10 } }}
+                  InputProps={{
+                    endAdornment: !validPass ? errorIcon : validIcon,
+                  }}
                 />
               </div>
               <div>
@@ -142,7 +219,6 @@ const Signup = () => {
                   color="primary"
                   variant="contained"
                   fullWidth
-                  onClick={handleSignupOperation}
                   disabled={loading ? true : false}
                   type="submit"
                   className={classes.submitButton}
@@ -161,6 +237,11 @@ const Signup = () => {
               and <span className={classes.highLightText}>Cookies Policy</span>{" "}
               .
             </Typography>
+            {error && (
+              <Typography style={{ color: "red" }} variant="body2">
+                {error.message}
+              </Typography>
+            )}
           </div>
         </Card>
         <Card className={classes.gutter}>
